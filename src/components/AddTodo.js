@@ -10,6 +10,7 @@ const AddContainer = styled.div`
 `;
 
 const AddButton = styled.button`
+  align-items: center;
   background-color: var(--add);
   border: none;
   border-radius: 50%;
@@ -17,8 +18,9 @@ const AddButton = styled.button`
   color: #fff;
   cursor: pointer;
   font-size: 2rem;
-  display: block;
+  display: flex;
   height: 4rem;
+  justify-content: center;
   line-height: 1;
   margin-left: auto;
   margin-right: auto;
