@@ -38,6 +38,8 @@ const Modal = styled.div`
   bottom: 0;
   display: flex;
   left: 0;
+  padding-left: 1rem;
+  padding-right: 1rem;
   position: fixed;
   right: 0;
   top: 0;
@@ -66,6 +68,11 @@ const ModalTitle = styled.h2`
 
 const ModalForm = styled.form`
   position: relative;
+
+  & > * {
+    font-size: 1rem;
+  }
+
   input {
     border: 0;
     border-radius: 0.125rem;
@@ -83,13 +90,13 @@ const ModalForm = styled.form`
     color: #fafafa;
     cursor: pointer;
     display: block;
-    height: 43px;
+    height: 44px;
     outline: 0;
     padding-left: 1rem;
     padding-right: 1rem;
     position: absolute;
-    right: 0.125rem;
-    top: 0.125rem;
+    right: 0.1875rem;
+    top: 0.1875rem;
   }
 `;
 
