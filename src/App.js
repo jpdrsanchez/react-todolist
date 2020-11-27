@@ -1,11 +1,13 @@
+import { TodoProvider } from './contexts/TodoContext';
 import GlobalStyle from './styles/global';
+import TodoList from './components/TodoList';
 
 const App = () => {
   return (
-    <>
-      <div>Teste Reset</div>
+    <TodoProvider>
+      <TodoList />
       <GlobalStyle />
-    </>
+    </TodoProvider>
   );
 };
 
