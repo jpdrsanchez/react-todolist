@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import { TodoContext } from '../contexts/TodoContext';
 import TodoHeader from './TodoHeader';
@@ -19,14 +19,35 @@ const List = styled.main`
 `;
 
 const TodoList = () => {
-  const { todos } = useContext(TodoContext);
+  const { todos, setTodos } = useContext(TodoContext);
+
+  useEffect(() => {
+    const getLocalStorage =
+      localStorage.getItem('toDos') &&
+      JSON.parse(localStorage.getItem('toDos')).map((local) => ({
+        text: local.text,
+        storaged: true,
+      }));
+    if (getLocalStorage) setTodos(getLocalStorage);
+  }, [setTodos]);
+
+  useEffect(() => {
+    const setLocalStorage = todos.length ? JSON.stringify(todos) : null;
+    if (setLocalStorage) localStorage.setItem('toDos', setLocalStorage);
+    else localStorage.removeItem('toDos');
+  }, [todos]);
 
   return (
     <List>
       <TodoHeader />
       {!!todos.length &&
         todos.map((todo, index) => (
-          <TodoItem key={index} toDoId={index} text={todo.text} />
+          <TodoItem
+            key={index}
+            toDoId={index}
+            text={todo.text}
+            storaged={todo.storaged}
+          />
         ))}
       <AddTodo />
     </List>

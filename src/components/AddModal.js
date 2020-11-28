@@ -120,7 +120,7 @@ const AddModal = ({ add, setAdd }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (value.trim().length) {
-      setTodos([...todos, { text: value }]);
+      setTodos([...todos, { text: value, storaged: false }]);
       setAdd(!add);
     } else if (!validate) {
       setValidate(!validate);

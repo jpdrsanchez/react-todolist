@@ -1,8 +1,8 @@
-import { useState, useContext, useRef } from 'react';
+import { useState, useContext, memo } from 'react';
 import { TodoContext } from '../contexts/TodoContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import styled, { keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 const Show = keyframes`
   from {
@@ -18,7 +18,6 @@ const Show = keyframes`
 
 const ShowHeight = keyframes`
   from {
-    opacity: 0;
     max-height: 0;
   }
 
@@ -29,7 +28,12 @@ const ShowHeight = keyframes`
 `;
 
 const Item = styled.div`
-  animation: ${ShowHeight} 0.2s forwards;
+  animation: ${(props) =>
+    props.animation
+      ? 'none'
+      : css`
+          ${ShowHeight} 0.3s forwards
+        `};
   align-items: center;
   display: flex;
   font-size: 1.5rem;
@@ -37,6 +41,7 @@ const Item = styled.div`
   justify-content: space-between;
   margin-bottom: 0.5rem;
   margin-top: 0.5rem;
+  opacity: ${(props) => (props.animation ? '1' : '0')};
 `;
 
 const ButtonWrapper = styled.div`
@@ -85,11 +90,10 @@ const TodoText = styled.p`
   transition: all 0.2s;
 `;
 
-const TodoItem = ({ toDoId, text }) => {
-  const thisElement = useRef();
+const TodoItem = ({ toDoId, text, storaged }) => {
   const [complete, setComplete] = useState(false);
   const { todos, setTodos } = useContext(TodoContext);
-
+  console.log(storaged);
   const handleRemove = (event) => {
     event.preventDefault();
     const removeTodo = todos.filter((todo) => todo !== todos[toDoId]);
@@ -97,7 +101,7 @@ const TodoItem = ({ toDoId, text }) => {
   };
 
   return (
-    <Item ref={thisElement}>
+    <Item animation={storaged}>
       <TodoText complete={complete}>{text}</TodoText>
       <ButtonWrapper>
         <Button complete={complete} onClick={() => setComplete(!complete)}>
@@ -111,4 +115,4 @@ const TodoItem = ({ toDoId, text }) => {
   );
 };
 
-export default TodoItem;
+export default memo(TodoItem);
